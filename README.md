@@ -1,2 +1,2 @@
-# Project Groebner Bases
+# Groebner Bases
 PCAP Project
