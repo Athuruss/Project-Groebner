@@ -1,0 +1,437 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     14558,        427]
+NotebookOptionsPosition[     12910,        391]
+NotebookOutlinePosition[     13310,        407]
+CellTagsIndexPosition[     13267,        404]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Constructing the Sets", "Title",
+ CellChangeTimes->{{3.852664584851933*^9, 
+  3.8526646039854264`*^9}},ExpressionUUID->"d1e85308-7787-4454-8677-\
+2437f0dd2441"],
+
+Cell["How we made the sets G_k", "Subtitle",
+ CellChangeTimes->{{3.8526647180039587`*^9, 
+  3.8526647318738704`*^9}},ExpressionUUID->"02243427-84e0-4e45-af9e-\
+905413bae24c"],
+
+Cell["\<\
+Given a graph G (here we label it the variable d) one can parse it through \
+the following code which will automatically produce the set G_k which is \
+labelled under graphpolyd. Then the last line of code computes the reduced \
+Groebner basis while also timing how long it takes.\
+\>", "Text",
+ CellChangeTimes->{{3.852664610378541*^9, 
+  3.8526647117845335`*^9}},ExpressionUUID->"d1fba550-3e82-4fe5-9a09-\
+8bb872db7927"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"d", "=", 
+   RowBox[{"Graph", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1", ",", "2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2", ",", "3"}], "}"}]}], "}"}], ",", 
+     RowBox[{"VertexLabels", "\[Rule]", " ", 
+      RowBox[{"Placed", "[", 
+       RowBox[{"Automatic", ",", "Center"}], "]"}]}], ",", 
+     RowBox[{"VertexSize", "\[Rule]", " ", "0.2"}]}], "]"}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"k", "=", "4"}], ";"}], " ", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vert", "=", 
+   RowBox[{"VertexList", "[", "d", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"absvert", "=", 
+    RowBox[{"Length", "[", "vert", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"edge", "=", 
+   RowBox[{"EdgeList", "[", "d", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"edge", "=", 
+   RowBox[{"List", " ", "@@@", "%"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"absedge", "=", 
+    RowBox[{"Length", "[", "edge", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vertpoly", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"For", "[", 
+   RowBox[{
+    RowBox[{"i", "=", "1"}], ",", 
+    RowBox[{"i", "\[LessEqual]", "absvert"}], ",", 
+    RowBox[{"i", "++"}], ",", 
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"vertpoly", ",", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Indexed", "[", 
+         RowBox[{"x", ",", "i"}], "]"}], "^", "k"}], "-", "1"}]}], "]"}]}], 
+   "]"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"vars", "=", 
+    RowBox[{"Variables", "[", "vertpoly", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"edgepoly", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"For", "[", 
+   RowBox[{
+    RowBox[{"i", "=", "1"}], ",", 
+    RowBox[{"i", "\[LessEqual]", "absedge"}], ",", 
+    RowBox[{"i", "++"}], ",", 
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"edgepoly", ",", 
+      RowBox[{"Part", "[", 
+       RowBox[{
+        RowBox[{"PolynomialReduce", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"Indexed", "[", 
+             RowBox[{"x", ",", 
+              RowBox[{"Part", "[", 
+               RowBox[{
+                RowBox[{"Part", "[", 
+                 RowBox[{"edge", ",", "i"}], "]"}], ",", "1"}], "]"}]}], 
+             "]"}], "^", "k"}], "-", 
+           RowBox[{
+            RowBox[{"Indexed", "[", 
+             RowBox[{"x", ",", 
+              RowBox[{"Part", "[", 
+               RowBox[{
+                RowBox[{"Part", "[", 
+                 RowBox[{"edge", ",", "i"}], "]"}], ",", "2"}], "]"}]}], 
+             "]"}], "^", "k"}]}], ",", 
+          RowBox[{
+           RowBox[{"Indexed", "[", 
+            RowBox[{"x", ",", 
+             RowBox[{"Part", "[", 
+              RowBox[{
+               RowBox[{"Part", "[", 
+                RowBox[{"edge", ",", "i"}], "]"}], ",", "1"}], "]"}]}], "]"}],
+            "-", 
+           RowBox[{"Indexed", "[", 
+            RowBox[{"x", ",", 
+             RowBox[{"Part", "[", 
+              RowBox[{
+               RowBox[{"Part", "[", 
+                RowBox[{"edge", ",", "i"}], "]"}], ",", "2"}], "]"}]}], 
+            "]"}]}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Indexed", "[", 
+             RowBox[{"x", ",", 
+              RowBox[{"Part", "[", 
+               RowBox[{
+                RowBox[{"Part", "[", 
+                 RowBox[{"edge", ",", "i"}], "]"}], ",", "1"}], "]"}]}], 
+             "]"}], ",", 
+            RowBox[{"Indexed", "[", 
+             RowBox[{"x", ",", 
+              RowBox[{"Part", "[", 
+               RowBox[{
+                RowBox[{"Part", "[", 
+                 RowBox[{"edge", ",", "i"}], "]"}], ",", "2"}], "]"}]}], 
+             "]"}]}], "}"}]}], "]"}], ",", "1"}], "]"}]}], "]"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"edgepoly", "=", 
+    RowBox[{"Flatten", "[", "edgepoly", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"graphpolyd", "=", 
+    RowBox[{"Join", "[", 
+     RowBox[{"vertpoly", ",", "edgepoly"}], "]"}]}], ";"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"{", 
+   RowBox[{"test", ",", "testgrob"}], "}"}], "=", 
+  RowBox[{"AbsoluteTiming", "[", 
+   RowBox[{"GroebnerBasis", "[", 
+    RowBox[{"graphpolyd", ",", "vars", ",", 
+     RowBox[{"MonomialOrder", "\[Rule]", "DegreeReverseLexicographic"}]}], 
+    "]"}], "]"}]}]}], "Code",
+ CellChangeTimes->{{3.852664439552803*^9, 3.852664441093521*^9}, {
+  3.8526644783521924`*^9, 3.852664481393202*^9}, {3.8526646914656696`*^9, 
+  3.852664693065649*^9}, {3.8526651858291597`*^9, 3.852665192723538*^9}},
+ CellLabel->"In[37]:=",ExpressionUUID->"3945c214-232b-43cd-94ff-37e642891bd3"],
+
+Cell[BoxData[
+ GraphicsBox[
+  NamespaceBox["NetworkGraphics",
+   DynamicModuleBox[{Typeset`graph = HoldComplete[
+     Graph[{1, 2, 3}, {Null, {{1, 2}, {2, 3}}}, {VertexLabels -> {
+         Placed[Automatic, Center]}, VertexSize -> {0.2}}]]}, 
+    TagBox[GraphicsGroupBox[{
+       {Hue[0.6, 0.7, 0.5], Opacity[0.7], 
+        LineBox[{{{0., 3.6739403974420594`*^-16}, {1., 
+         2.4492935982947064`*^-16}}, {{1., 2.4492935982947064`*^-16}, {2., 
+         0.}}}]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+        0.7]}], {DiskBox[{0., 3.6739403974420594*^-16}, 0.1], InsetBox["1", {0., 3.6739403974420594*^-16},
+          BaseStyle->"Graphics"]}, {
+         DiskBox[{1., 2.4492935982947064*^-16}, 0.1], InsetBox["2", {1., 2.4492935982947064*^-16},
+          BaseStyle->"Graphics"]}, {DiskBox[{2., 0.}, 0.1], InsetBox["3", {2., 0.},
+          BaseStyle->"Graphics"]}}}],
+     MouseAppearanceTag["NetworkGraphics"]],
+    AllowKernelInitialization->False]],
+  DefaultBaseStyle->{
+   "NetworkGraphics", FrontEnd`GraphicsHighlightColor -> Hue[0.8, 1., 0.6]},
+  FormatType->TraditionalForm,
+  FrameTicks->None]], "Output",
+ CellChangeTimes->{
+  3.8526649633055677`*^9, {3.852665189675209*^9, 3.852665193054079*^9}},
+ CellLabel->"Out[37]=",ExpressionUUID->"70b0ec8a-14be-405b-9921-7b3b69e0fbbe"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.000651`", ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      SuperscriptBox[
+       TemplateBox[{"x", "2"},
+        "IndexedDefault"], "3"], "+", 
+      RowBox[{
+       SuperscriptBox[
+        TemplateBox[{"x", "2"},
+         "IndexedDefault"], "2"], " ", 
+       TemplateBox[{"x", "3"},
+        "IndexedDefault"]}], "+", 
+      RowBox[{
+       TemplateBox[{"x", "2"},
+        "IndexedDefault"], " ", 
+       SuperscriptBox[
+        TemplateBox[{"x", "3"},
+         "IndexedDefault"], "2"]}], "+", 
+      SuperscriptBox[
+       TemplateBox[{"x", "3"},
+        "IndexedDefault"], "3"]}], ",", 
+     RowBox[{
+      SuperscriptBox[
+       TemplateBox[{"x", "1"},
+        "IndexedDefault"], "3"], "+", 
+      RowBox[{
+       SuperscriptBox[
+        TemplateBox[{"x", "1"},
+         "IndexedDefault"], "2"], " ", 
+       TemplateBox[{"x", "2"},
+        "IndexedDefault"]}], "+", 
+      RowBox[{
+       TemplateBox[{"x", "1"},
+        "IndexedDefault"], " ", 
+       SuperscriptBox[
+        TemplateBox[{"x", "2"},
+         "IndexedDefault"], "2"]}], "-", 
+      RowBox[{
+       SuperscriptBox[
+        TemplateBox[{"x", "2"},
+         "IndexedDefault"], "2"], " ", 
+       TemplateBox[{"x", "3"},
+        "IndexedDefault"]}], "-", 
+      RowBox[{
+       TemplateBox[{"x", "2"},
+        "IndexedDefault"], " ", 
+       SuperscriptBox[
+        TemplateBox[{"x", "3"},
+         "IndexedDefault"], "2"]}], "-", 
+      SuperscriptBox[
+       TemplateBox[{"x", "3"},
+        "IndexedDefault"], "3"]}], ",", 
+     RowBox[{
+      RowBox[{"-", "1"}], "+", 
+      SuperscriptBox[
+       TemplateBox[{"x", "3"},
+        "IndexedDefault"], "4"]}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.8526649633055677`*^9, {3.852665189675209*^9, 3.852665193061059*^9}},
+ CellLabel->"Out[51]=",ExpressionUUID->"1483741f-0527-47fe-885a-09f2a6cad507"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["How we made the polynomial P_G", "Subtitle",
+ CellChangeTimes->{{3.8526647362605567`*^9, 
+  3.8526647551111493`*^9}},ExpressionUUID->"6a26d399-0bdc-45dc-ae0d-\
+6d5cf39c1e6b"],
+
+Cell["\<\
+After constructing the edge set from the graph, this step is fairly simple as \
+one can take each edge and make it an index using the following code.\
+\>", "Text",
+ CellChangeTimes->{{3.852665215558191*^9, 
+  3.852665267265537*^9}},ExpressionUUID->"ee68f408-f292-446b-a7ac-\
+bc34e4568dec"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Pg", "=", 
+  RowBox[{"Expand", "[", 
+   RowBox[{"Product", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Indexed", "[", 
+       RowBox[{"v", ",", 
+        RowBox[{"Part", "[", 
+         RowBox[{
+          RowBox[{"Part", "[", 
+           RowBox[{"edge", ",", "i"}], "]"}], ",", "1"}], "]"}]}], "]"}], "-", 
+      RowBox[{"Indexed", "[", 
+       RowBox[{"v", ",", 
+        RowBox[{"Part", "[", 
+         RowBox[{
+          RowBox[{"Part", "[", 
+           RowBox[{"edge", ",", "i"}], "]"}], ",", "2"}], "]"}]}], "]"}]}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "edgepoly", "]"}]}], "}"}]}], "]"}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.8526648111709614`*^9, 3.852664859152804*^9}, {
+  3.8526649033852096`*^9, 3.8526649925138664`*^9}, {3.852665070883501*^9, 
+  3.8526651675617757`*^9}},
+ CellLabel->"In[52]:=",ExpressionUUID->"c39b87c5-3e7f-4ff7-8c39-ad05d906f6d0"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   TemplateBox[{"v", "1"},
+    "IndexedDefault"], " ", 
+   TemplateBox[{"v", "2"},
+    "IndexedDefault"]}], "-", 
+  SuperscriptBox[
+   TemplateBox[{"v", "2"},
+    "IndexedDefault"], "2"], "-", 
+  RowBox[{
+   TemplateBox[{"v", "1"},
+    "IndexedDefault"], " ", 
+   TemplateBox[{"v", "3"},
+    "IndexedDefault"]}], "+", 
+  RowBox[{
+   TemplateBox[{"v", "2"},
+    "IndexedDefault"], " ", 
+   TemplateBox[{"v", "3"},
+    "IndexedDefault"]}]}]], "Output",
+ CellChangeTimes->{{3.852665169873109*^9, 3.8526651960409718`*^9}},
+ CellLabel->"Out[52]=",ExpressionUUID->"b803faf2-7966-40b7-aa94-66d789b00529"]
+}, Open  ]],
+
+Cell["\<\
+Then from here the ideal we consider in the context of this polynomial P_G is \
+simply generated by the set labelled vertpoly.\
+\>", "Text",
+ CellChangeTimes->{{3.852665291207136*^9, 
+  3.8526653422575083`*^9}},ExpressionUUID->"8d23a37a-b8d4-4a79-b3ca-\
+11e9f44f3b56"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["vertpoly"], "Input",
+ CellChangeTimes->{{3.852665344511879*^9, 3.852665350227579*^9}},
+ CellLabel->"In[54]:=",ExpressionUUID->"5e8a8ab8-58cb-462a-82e3-5f28adcb843a"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"-", "1"}], "+", 
+    SuperscriptBox[
+     TemplateBox[{"x", "1"},
+      "IndexedDefault"], "4"]}], ",", 
+   RowBox[{
+    RowBox[{"-", "1"}], "+", 
+    SuperscriptBox[
+     TemplateBox[{"x", "2"},
+      "IndexedDefault"], "4"]}], ",", 
+   RowBox[{
+    RowBox[{"-", "1"}], "+", 
+    SuperscriptBox[
+     TemplateBox[{"x", "3"},
+      "IndexedDefault"], "4"]}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.8526653456268606`*^9, 3.852665350565349*^9}},
+ CellLabel->"Out[54]=",ExpressionUUID->"9c625140-55ea-4277-8708-6e3aa3f8501c"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1920, 997},
+WindowMargins->{{-8, Automatic}, {Automatic, -8}},
+FrontEndVersion->"12.1 for Microsoft Windows (64-bit) (March 18, 2020)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"2374d238-15d0-444f-949e-6f38646e3026"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 166, 3, 96, "Title",ExpressionUUID->"d1e85308-7787-4454-8677-2437f0dd2441"],
+Cell[749, 27, 174, 3, 53, "Subtitle",ExpressionUUID->"02243427-84e0-4e45-af9e-905413bae24c"],
+Cell[926, 32, 432, 8, 34, "Text",ExpressionUUID->"d1fba550-3e82-4fe5-9a09-8bb872db7927"],
+Cell[CellGroupData[{
+Cell[1383, 44, 5071, 146, 447, "Code",ExpressionUUID->"3945c214-232b-43cd-94ff-37e642891bd3"],
+Cell[6457, 192, 1311, 25, 63, "Output",ExpressionUUID->"70b0ec8a-14be-405b-9921-7b3b69e0fbbe"],
+Cell[7771, 219, 1878, 62, 36, "Output",ExpressionUUID->"1483741f-0527-47fe-885a-09f2a6cad507"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9686, 286, 180, 3, 53, "Subtitle",ExpressionUUID->"6a26d399-0bdc-45dc-ae0d-6d5cf39c1e6b"],
+Cell[9869, 291, 299, 6, 34, "Text",ExpressionUUID->"ee68f408-f292-446b-a7ac-bc34e4568dec"],
+Cell[CellGroupData[{
+Cell[10193, 301, 952, 26, 28, "Input",ExpressionUUID->"c39b87c5-3e7f-4ff7-8c39-ad05d906f6d0"],
+Cell[11148, 329, 632, 21, 32, "Output",ExpressionUUID->"b803faf2-7966-40b7-aa94-66d789b00529"]
+}, Open  ]],
+Cell[11795, 353, 278, 6, 34, "Text",ExpressionUUID->"8d23a37a-b8d4-4a79-b3ca-11e9f44f3b56"],
+Cell[CellGroupData[{
+Cell[12098, 363, 179, 2, 28, "Input",ExpressionUUID->"5e8a8ab8-58cb-462a-82e3-5f28adcb843a"],
+Cell[12280, 367, 590, 19, 36, "Output",ExpressionUUID->"9c625140-55ea-4277-8708-6e3aa3f8501c"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
