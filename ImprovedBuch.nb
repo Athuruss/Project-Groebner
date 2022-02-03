@@ -36,7 +36,7 @@ Cell[BoxData[
  RowBox[{
   RowBox[{"LT", "[", 
    RowBox[{
-    RowBox[{"p_", "?", "PolynomialQ"}], ",", "vars_", ",", "or_"}], "]"}], ":=", 
+    RowBox[{"p_", "?", "PolynomialQ"}], ",", "vars_", ",", "or_"}], "]"}], ":=",
   RowBox[{"First", "[", 
    RowBox[{"MonomialList", "[", 
     RowBox[{"p", ",", "vars", ",", "or"}], "]"}], "]"}]}]], "Code",
