@@ -1,7 +1,7 @@
 # Groebner Bases
 This repository serves as a place where we store all of the code used inside the report, for which references are provided appropriately within the report.
 
-BuchAlgorithm.pdf and ImprovedBuch.nb gives a theoretical explanation of the (improved) Buchberger's algorithm, while the second file gives us the way we implemented it into Mathematica.
+BuchAlgorithm.pdf gives a theoretical explanation of the (improved) Buchberger's algorithm, while ImprovedBuch.nb gives us the exact way we implemented the improved Buchberger's algorithm into Mathematica.
 
 Then Magic_squares_Notes.nb, largegraph.nb, largesporadic.nb and groeben_Basis_Example_one.nb store the information of the examples used throughout the report.
 
